@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Caravane d'Albâtre</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+
+<body>
+    <!-- Barre supérieure -->
+    <header class="top-bar">
+        <div class="stats">
+            <span id="crew"><img src="assets/images/ui/stats/crew.png" alt="Crew"> 20</span>
+            <span id="morale"><img src="assets/images/ui/stats/morale.png" alt="Morale"> 50%</span>
+            <span id="debens"><img src="assets/images/ui/stats/debens.png" alt="Debens"> 1000</span>
+            <span id="water"><img src="assets/images/ui/stats/water.png" alt="Water"> 50</span>
+            <span id="authority"><img src="assets/images/ui/stats/authority.png" alt="Authority"> 10</span>
+            <button id="resources-btn"><img src="assets/images/ui/stats/inventory.png" alt="Ressources"> Ressources</button>
+            <button id="porterage-btn"><img src="assets/images/ui/stats/porterage.png" alt="Portage"> Portage</button>
+        
+        </div>
+        
+        <div class="actions">
+            <button id="settings-btn" class="info-btn">
+                <img src="assets/images/ui/button/setting.png" alt="Réglages" class="button-icon">
+            </button>
+        </div>
+
+    </header>
+
+
+    <!-- Fenêtre modale : Réglages -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>⚙️ Réglages</h2>
+
+            <div class="setting-group">
+                <label for="music-volume">🎵 Volume musique</label>
+                <input type="range" id="music-volume" min="0" max="100" value="50">
+            </div>
+
+
+            <div class="setting-actions">
+                <button id="rules-btn" class="info-btn">
+                    <img class="button-icon" src="assets/images/ui/button/diary.png" alt="Carnet Icon" >
+                    Règles
+                </button>
+
+                <button id="sound-toggle-btn">
+                    <img id="sound-icon" src="assets/images/ui/button/sound_on.png" alt="Son On" width="24" height="24">
+                </button>
+
+                <button id="restart-btn">
+                    🔁 Recommencer la partie
+                </button>
+
+                <button id="reset-settings-btn">
+                    🧹 Réinitialiser les réglages
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Fenêtre modale : Règles du jeu -->
+    <div class="modal" id="rules-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="rules-content">
+                <h2>Règles du jeu - La Caravane d'Albâtre</h2>
+                <h3>Objectif</h3>
+                <p>Gérez votre caravane dans l'Égypte antique en répondant aux besoins de votre équipage tout en accumulant des richesses grâce au commerce.</p>
+                
+                <h3>Ressources clés</h3>
+                <ul>
+                    <li><strong>Équipage (Crew)</strong> : Vos personnes. Si elles tombent à 0, vous perdez.</li>
+                    <li><strong>Moral</strong> : Baisse chaque tour. S'il tombe à 0, risque de révolte.</li>
+                    <li><strong>Eau</strong> : Consommée chaque tour. Manquer d'eau tue immédiatement.</li>
+                    <li><strong>Nourriture</strong> : Manquer de nourriture déclenche la famine.</li>
+                    <li><strong>Debens</strong> : Monnaie pour le commerce.</li>
+                </ul>
+                
+                <h3>Déroulement d'un tour</h3>
+                <ol>
+                    <li><strong>Assignation</strong> : Répartissez votre équipage (éclaireurs, gardes, collecteurs...)</li>
+                    <li><strong>Résolution</strong> : Cliquez sur "Résoudre" pour exécuter les actions</li>
+                    <li><strong>Déplacement</strong> : Choisissez votre destination (ou restez sur place)</li>
+                </ol>
+                
+                <h3>Stratégie commerciale</h3>
+                <p>Achetez du papyrus dans les cités fluviales et vendez-le avec profit dans les cités du désert.</p>
+                
+                <h3>Dangers</h3>
+                <ul>
+                    <li><strong>Légionnaires</strong> : Sur les berges du Nil, peuvent vous taxer ou combattre</li>
+                    <li><strong>Bandits</strong> : Dans les oasis, attaquent pour voler vos ressources</li>
+                    <li><strong>Désert</strong> : Peu de ressources, nécessite des réserves</li>
+                </ul>
+                
+                <h3>Conseils</h3>
+                <ul>
+                    <li>Toujours avoir des éclaireurs pour trouver des cités et oasis</li>
+                    <li>Surveillez votre portage (chameaux > porteurs humains)</li>
+                    <li>Gérez votre moral avec des promeneurs</li>
+                    <li>Stockez de l'eau et de la nourriture avant de traverser le désert</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Fenêtre modale : Ressources -->
+    <div class="modal" id="resources-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2><img src="assets/images/ui/stats/inventory.png" alt="Inventaire"> Inventaire</h2>
+            <div class="resource">
+                <span><img src="assets/images/ui/resources/weapons.png" alt="Armes"> Armes:</span>
+                <span id="weapons">3</span>
+            </div>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/resources/camels.png" alt="Chameaux"> Chameaux:</span>
+                <span id="camels">1</span>
+            </div>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/resources/rations.png" alt="Rations"> Rations:</span>
+                <span id="rations">80</span>
+            </div>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/resources/papyrus.png" alt="Papyrus"> Papyrus:</span>
+                <span id="papyrus">10</span>
+            </div>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/resources/horses.png" alt="Chevaux"> Chevaux:</span>
+                <span id="horses">2</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Fenêtre modale : Portage -->
+    <div class="modal" id="porterage-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2><img src="assets/images/ui/stats/porterage.png" alt="Portage"> Informations de portage</h2>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/stats/crew.png" alt="Personnes"> Personnes inoccupées:</span>
+                <span id="idle-count">0</span>
+            </div>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/stats/load.png" alt="Portage"> Portage actuel:</span>
+                <span id="current-porterage">0</span>
+            </div>
+
+            <div class="resource">
+                <span><img src="assets/images/ui/stats/needed_load.png" alt="Portage nécessaire"> Portage nécessaire:</span>
+                <span id="needed-porterage">0</span>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- Conteneur principal des boutons -->
+    <div class="main-buttons-container">
+        <div class="rounded-rectangle">
+            <div class="buttons-grid">
+
+                <button id="assign-btn">
+                    <img src="assets/images/ui/button/assignement.png" alt="Assignement Icon" class="button-icon">
+                    Rôles
+                </button>
+                
+                <button id="map-btn">
+                    <img src="assets/images/ui/button/map.png" alt="Carte Icon" class="button-icon">
+                    Carte
+                </button>
+
+                <button id="trade-btn">
+                    <img src="assets/images/ui/button/trade.png" alt="Commerce Icon" class="button-icon">
+                    Commerce
+                </button>
+
+                <button id="log-btn">
+                    <img src="assets/images/ui/button/diary.png" alt="Carnet Icon" class="button-icon">
+                    Carnet
+                </button>
+
+            </div>
+        </div>
+    </div>
+        
+
+    <!-- Fenêtre modale : Assignations -->
+    <div class="modal" id="assign-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="game-window1"> <!-- Ajouté -->
+                <h2>Assignations</h2>
+
+                <div class="formRow1">
+                    <p>Éclaireurs</p>
+                    <div class="bloc1">
+                        <img class="btn-minus" id="btn-minus1" src="assets/images/ui/button/minus.png" alt="-">
+                        <input id="input1" type="text" value="0" readonly>
+                        <img class="btn-plus" id="btn-plus1" src="assets/images/ui/button/plus.png" alt="+">
+                    </div>
+                </div>
+
+                <div class="formRow1">
+                    <p>Gardes</p>
+                    <div class="bloc1">
+                        <img class="btn-minus" id="btn-minus2" src="assets/images/ui/button/minus.png" alt="-">
+                        <input id="input2" type="text" value="0" readonly>
+                        <img class="btn-plus" id="btn-plus2" src="assets/images/ui/button/plus.png" alt="+">
+                    </div>
+                </div>
+
+                <div class="formRow1">
+                    <p>Collecteurs d’eau</p>
+                    <div class="bloc1">
+                        <img class="btn-minus" id="btn-minus3" src="assets/images/ui/button/minus.png" alt="-">
+                        <input id="input3" type="text" value="0" readonly>
+                        <img class="btn-plus" id="btn-plus3" src="assets/images/ui/button/plus.png" alt="+">
+                    </div>
+                </div>
+
+                <div class="formRow1">
+                    <p>Récolteurs de nourriture</p>
+                    <div class="bloc1">
+                        <img class="btn-minus" id="btn-minus4" src="assets/images/ui/button/minus.png" alt="-">
+                        <input id="input4" type="text" value="0" readonly>
+                        <img class="btn-plus" id="btn-plus4" src="assets/images/ui/button/plus.png" alt="+">
+                    </div>
+                </div>
+
+                <div class="formRow1">
+                    <p>Promeneurs</p>
+                    <div class="bloc1">
+                        <img class="btn-minus" id="btn-minus5" src="assets/images/ui/button/minus.png" alt="-">
+                        <input id="input5" type="text" value="0" readonly>
+                        <img class="btn-plus" id="btn-plus5" src="assets/images/ui/button/plus.png" alt="+">
+                    </div>
+                </div>
+
+                <div class="btn">
+                    <button id="btnValidate1">Confirmer</button>
+                </div>
+            </div>   
+        </div>
+    </div>
+
+    <!-- Fenêtre modale : Carte -->
+    <div class="modal" id="map-modal">
+        <div class="map-container">
+            <img id="map-image" src="assets/images/map/map.png" alt="Carte interactive">
+
+            <!-- Zones cliquables -->
+            <div class="map-zone" data-location="fluvial_city" style="top: 40%; left: 40%; width: 15%; height: 10%;"></div>
+            <div class="map-zone" data-location="desert_city" style="top: 50%; left: 10%; width: 15%; height: 10%;"></div>
+            <div class="map-zone" data-location="desert" style="top: 70%; left: 10%; width: 20%; height: 10%;"></div>
+            <div class="map-zone" data-location="nil_shore" style="top: 70%; left: 50%; width: 15%; height: 10%;"></div>
+            <div class="map-zone" data-location="oasis" style="top: 80%; left: 35%; width: 10%; height: 10%;"></div>
+            <div class="map-zone" data-location="village" style="top: 15%; left: 40%; width: 15%; height: 10%;"></div>
+        </div>
+        <span class="close-btn">&times;</span>
+    </div>
+
+    <!-- Fenêtre modale : Commerce -->
+    <div class="modal" id="trade-modal">
+        <div class="modal-content large-modal">
+            <span class="close-btn">&times;</span>
+            <div id="game-window2">
+                <h1>Welcome, merchant!</h1>
+
+                <div class="jsp">
+                    <h3>Sell</h3> 
+                    <p id="totalProfit">0</p>
+                </div>
+
+                <div id="elements1">
+                    <!-- Les éléments de vente seront générés dynamiquement -->
+                </div>    
+
+                <div class="jsp">
+                    <h3>Buy</h3>
+                    <p id="totalLoss">0</p>
+                </div>
+
+                <div id="elements2">
+                    <!-- Les éléments d'achat seront générés dynamiquement -->
+                </div>
+
+                <div class="btn">
+                    <img id="btnValidate2" src="assets/images/ui/button/ok.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fenêtre modale : Carnet de bord -->
+    <div class="modal" id="log-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Carnet de bord</h2>
+            <div id="log-messages">
+                <p>Bienvenue dans la Caravane d'Albâtre !</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bouton : Infos lieu -->
+    <div class="current-location-box">
+        Lieu actuel : <span id="current-location-name">Fluvial City</span>
+    </div>
+
+    <!-- Fenêtre modale : Infos Lieu -->
+    <div class="modal" id="location-info-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="location-info-content">
+                <!-- contenu généré dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bouton : Résolution du tour-->
+    <div class="resolve-container">
+        <button id="resolve-btn">⚡ Résoudre</button>
+    </div>
+
+
+
+   <!-- Javascript -->
+   <script type="module" src="js/main.js"></script>
+
+
+</body>
+</html>
