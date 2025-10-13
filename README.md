@@ -125,7 +125,11 @@ Puis ouvrez http://localhost:8000 dans votre navigateur
 
 ## Auteur
 
-[@naima-beck](https://www.github.com/naima-beck) - Cy Tech - Sciences-Po Saint-Germain-En-Laye - [2023/2024]
+- [@naima-beck](https://www.github.com/naima-beck)
+- [@axellelepoul-ctrl](https://www.github.com/axellelepoul-ctrl)
+- [@Antonin287](https://github.com/Antonin287)
+
+Cy Tech - Sciences-Po Saint-Germain-En-Laye - [2023/2024]
 
 
 ## License
