@@ -1,0 +1,856 @@
+/* -------------------------------------------------- */
+/* RESET GÉNÉRAL                                      */
+/* -------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5e7d6;
+    color: #3a2c1a;
+    transition: background-image 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: relative;
+
+    font-family: Papyrus,fantasy;
+}
+
+body::before {
+    content: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* -------------------------------------------------- */
+/* BARRE SUPÉRIEURE                                   */
+/* -------------------------------------------------- */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #d4b483;
+    border-bottom: 2px solid #3a2c1a;
+    flex-wrap: wrap;
+    align-items: center; /* Ajout pour aligner verticalement */
+}
+
+.stats, .actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Modification importante pour les spans de stats */
+.stats > span {
+    display: inline-flex; /* Changé de flex à inline-flex */
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #c19a5f;
+    height: 36px; /* Hauteur fixe pour uniformité */
+    color : white;
+}
+
+/* Style des images dans la barre de stats */
+.stats span img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    object-fit: contain; /* Garantit que l'image conserve ses proportions */
+}
+
+/* Style des boutons dans la barre */
+.stats button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #c19a5f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    height: 36px; /* Même hauteur que les spans */
+}
+
+.stats button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+}
+
+/* Style pour les boutons d'action */
+.actions button {
+    padding: 8px 12px;
+    background-color: #c19a5f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #a67c52;
+}
+
+/* -------------------------------------------------- */
+/* MODALES                                            */
+/* -------------------------------------------------- */
+.modal-content h2 img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.resource {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #d4b483;
+}
+
+.resource span:first-child {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.resource img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+/* -------------------------------------------------- */
+/* CARNET DE BORD                                     */
+/* -------------------------------------------------- */
+.log-panel {
+    padding: 15px;
+    background-color: #3a2c1a;
+    color: white;
+    height: 20vh;
+    overflow-y: auto;
+}
+
+.log-panel h2 {
+    margin-bottom: 10px;
+}
+
+/* -------------------------------------------------- */
+/* FENÊTRES MODALES                                   */
+/* -------------------------------------------------- */
+/* Style général pour la modale */
+.modal {
+    display: none; /* Masqué par défaut */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: auto; /* Scroll si besoin */ 
+
+}
+
+/* Contenu de la modale */
+.modal-content {
+    /* Image de fond */
+    background-image: url("../assets/images/ui/modal/papyrus.jpg");
+    background-size: cover;
+    background-position: center;
+
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.assignment, .trade-item, .resource {
+    backdrop-filter: blur(10px);
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #d4b483;
+    border-radius: 4px;
+}
+
+#current-location-name {
+    cursor: pointer;
+}
+
+/* -------------------------------------------------- */
+/* MODALES AVEC LA CARTE                              */
+/* -------------------------------------------------- */
+
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+}
+
+#map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.map-zone {
+    position: absolute;
+    background-color: rgba(255, 0, 0, 0.3); /* Rouge semi-transparent pour visualisation */
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.map-zone:hover {
+    background-color: rgba(0, 255, 0, 0.3); /* Vert au survol */
+    transform: scale(1.1);
+}
+
+/* Cache les zones en production (enlève le background-color) */
+.map-zone {
+    background-color: transparent;
+}
+
+
+
+/* -------------------------------------------------- */
+/* RESPONSIVE DESIGN                                  */
+/* -------------------------------------------------- */
+@media (max-width: 600px) {
+    .top-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 20% auto;
+    }
+}
+
+.large-modal {
+    max-width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+.location-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+}
+
+
+/* -------------------------------------------------- */
+/* ASSIGNEMENT UI                                     */
+/* -------------------------------------------------- */
+.formRow1 {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.formRow1 p {
+    flex: 1;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.bloc1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bloc1 input {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.bloc1 img.btn-plus,
+.bloc1 img.btn-minus {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.btn {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn button {
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #c19a5f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn button:hover {
+    background-color: #a67c52;
+}
+
+/* -------------------------------------------------- */
+/* COMMERCE                                           */
+/* -------------------------------------------------- */
+
+#trade-modal .modal-content {
+    border: 2px solid #3a2c1a;
+    box-shadow: 0 4px 20px rgba(58, 44, 26, 0.3);
+    padding: 25px;
+    max-width: 800px;
+}
+
+#game-window2 {
+    background: none !important; /* Supprime l'image de fond */
+    padding: 0;
+}
+
+#game-window2 h1 {
+    color: #3a2c1a;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 24px;
+    border-bottom: 2px solid #d4b483;
+    padding-bottom: 10px;
+}
+
+.jsp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d4b483;
+}
+
+.jsp h3 {
+    color: #3a2c1a;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Conteneurs des éléments de vente/achat */
+#elements1, #elements2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Style des cartes produits */
+.formRow {
+    backdrop-filter: blur(10px);
+    width: 100%;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 15px;
+    border: 1px solid #d4b483;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.product p {
+    font-weight: bold;
+    color: #3a2c1a;
+    margin: 0;
+    font-size: 16px;
+}
+
+.icons {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.informations p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #5a4a30;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.bloc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bloc input {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #d4b483;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btnMinus, .btnPlus {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btnMinus:hover, .btnPlus:hover {
+    transform: scale(1.1);
+}
+
+/* Totaux */
+#totalProfit, #totalLoss {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#totalProfit {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+#totalLoss {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* Bouton de validation */
+.btn {
+    text-align: center;
+    margin-top: 25px;
+}
+
+#btnValidate2 {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+}
+
+#btnValidate2:hover {
+    transform: scale(1.05);
+}
+
+/* Animation shake pour fonds insuffisants */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+.insufficient-funds {
+    animation: shake 0.5s;
+}
+
+/* Responsive */
+/* Pour les écrans plus petits, on repasse à 1 colonne */
+@media (max-width: 768px) {
+    #elements1, #elements2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.location-image {
+    position: relative;
+}
+
+.location-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+    pointer-events: none; /* L'image ne bloque pas les clics */
+}
+
+map area {
+    cursor: pointer;
+    outline: none;
+}
+
+/* -------------------------------------------------- */
+/* CONTENEUR PRINCIPAL DES BOUTONS.                   */
+/* -------------------------------------------------- */
+.main-buttons-container {
+    position: fixed;
+    right: 5%;
+    top: 15%;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    z-index: 10;
+}
+
+
+.rounded-rectangle {
+    border-radius: 15px;
+    padding: 5%;
+    /*   */
+    width: 100%;
+    border: 2px solid #3a2c1a;
+    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.buttons-grid {
+    display: grid;
+    gap: 30px;
+}
+.buttons-grid button {
+    justify-content: space-between; 
+    padding: 12px 15px;
+    gap: 10px;
+}
+
+.button-icon {
+    width: 32px;  /* Ajustez selon vos besoins */
+    height: 32px;
+    object-fit: contain;
+}
+
+.buttons-grid button {
+    background-color: #c19a5f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 20px;
+    min-width: 100px;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.buttons-grid button:hover {
+    background-color: #a67c52;
+    transform: translateY(-2px);
+}
+
+.buttons-grid button::before {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+/* Section Résoudre */
+.resolve-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.current-location-box {
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
+    background-color: rgba(58, 44, 26, 0.9);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid #c19a5f;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#current-location-name {
+    font-weight: bold;
+}
+
+#resolve-btn {
+    padding: 12px 25px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(58, 44, 26, 0.9);
+}
+
+#resolve-btn:hover {
+    background-color: #291d0d;
+    transform: translateY(-2px);
+}
+
+/* -------------------------------------------------- */
+/* STYLE DE BASE DES MODALES (à conserver)            */
+/* -------------------------------------------------- */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff8ee;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.large-modal {
+    max-width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+}
+
+/* -------------------------------------------------- */
+/* ADAPTATION POUR LA NOUVELLE DISPOSITION             */
+/* -------------------------------------------------- */
+.modal {
+    left: auto;
+    right: auto;
+    background-color: transparent; /* Supprime le fond noir */
+    width: auto;
+    height: auto;
+    top: 15%;
+    left: 5%;
+}
+
+.modal-content {
+    margin: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #3a2c1a;
+}
+
+/* Animation d'apparition */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content {
+    background-color: #fff8ee;
+    margin: 0;
+    padding: 20px;
+    width: 45%;
+    min-width: 550px;
+    border-radius: 8px;
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid #3a2c1a;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95vw;
+        top: 70px;
+    }
+    
+    .modal-content {
+        width: 90% !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.alert-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.alert-content {
+    background-color: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #8B4513;
+    max-width: 80%;
+    text-align: center;
+    color: white;
+}
+
+.close-alert {
+    margin-top: 15px;
+    padding: 5px 15px;
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.close-alert:hover {
+    background-color: #A0522D;
+}
+
+
+
+/* Règles du jeu */
+
+/* Style pour le contenu des règles */
+.rules-content {
+    padding: 10px 0;
+}
+
+.rules-content h2 {
+    margin: 15px 0 8px 0;
+    color: #000000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.441);
+    padding-bottom: 10px;
+}
+
+.rules-content h3 {
+    margin: 15px 0 8px 0;
+    color: #8B4513;
+    border-bottom: 1px solid #582d0f78;
+    padding-bottom: 5px;
+}
+
+.rules-content ul, .rules-content ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.rules-content li {
+    margin-bottom: 5px;
+}
+
+
+#game-window1 h2 {
+    text-align: center;
+}
+
+
+.setting-group {
+  margin: 1em 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-group label {
+  margin-bottom: 0.3em;
+  font-weight: bold;
+}
+
+.setting-group input[type="range"] {
+  width: 100%;
+}
+
+.setting-actions {
+  margin-top: 1.5em;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.setting-actions button {
+  background-color: #c2a477;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.setting-actions button:hover {
+  background-color: #a58a61;
+}
