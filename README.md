@@ -20,14 +20,14 @@ Votre mission : accumuler suffisamment de richesses pour acquérir une majestueu
 ### Cloner le repository
 
 ```bash
-git clone https://github.com/naima-beck/analyse-statistique-engagement-mooc.git
-cd analyse-statistique-engagement-mooc
+git clone https://github.com/naima-beck/Jeux_caravane_albatre.git
+cd Jeux_caravane_albatre
 ```
 
 ### Structure du projet
 
 ```bash
-/Jeux_caravane
+/Jeux_caravane_albatre
 │
 ├── /assets/                # Tous les fichiers statiques : images, sons, polices...
 │   ├── /images/
@@ -105,6 +105,7 @@ npm install -g serve
 # Lance le serveur dans le dossier du projet
 serve .
 ```
+
 Ensuite, ouvrez l'adresse indiquée (généralement http://localhost:3000)
 
 Avec Python (si installé) :
