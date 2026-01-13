@@ -122,7 +122,7 @@ Puis ouvrez http://localhost:8000 dans votre navigateur
 
 ## Références
 
-- **[Énoncé du projet](./docs/Projet_web_La_Caravane dAlbatre.pdf)**
+- **[Énoncé du projet](./references/Projet_web_La_Caravane dAlbatre.pdf)**
 
 ## Auteur
 
