@@ -124,8 +124,7 @@ cd Jeux_caravane_albatre
 3. Dans le panneau de gauche, **clic droit sur `index.html`**
 4. Cliquer sur **"Ouvrir avec Live Server"**
 
-Le navigateur va s’ouvrir automatiquement à l’adresse :
-http://127.0.0.1:5500/index.html
+Le navigateur va s’ouvrir automatiquement à l’adresse : http://127.0.0.1:5500/index.html
 ---
 
 ### Option 2 : Avec un serveur HTTP en ligne de commande
@@ -162,7 +161,7 @@ Puis ouvrez http://localhost:8000 dans votre navigateur
 
 ## Références
 
-- **[Énoncé du projet](./references/Projet_web_La_Caravane dAlbatre.pdf)**
+- **[Énoncé du projet](references/Projet_web_La_Caravane dAlbatre.pdf)**
 
 ## Auteur
 
