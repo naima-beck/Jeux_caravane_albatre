@@ -2,6 +2,11 @@
 
 C'est un jeu de gestion en tour par tour se déroulant dans l'Égypte antique. Guidez votre caravane à travers le désert, gérez vos ressources, commercez avec les cités et survivez aux dangers du Nil.
 
+
+https://github.com/user-attachments/assets/ee57eef6-2945-4c8c-a664-663e55df3580
+
+
+
 ## Objectifs
 
 Votre mission : accumuler suffisamment de richesses pour acquérir une majestueuse barque de commerce naviguant sur le Nil. Pour cela, vous devrez :
