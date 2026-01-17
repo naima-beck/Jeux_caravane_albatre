@@ -1,19 +1,19 @@
-import { backgroundMusic, gameState, place, locationBackgrounds, porterage } from './gameState.js';
+import { backgroundMusic, gameState, place, porterage } from './gameState.js';
 import { assignmentSetup,resetAssignments, carriers,refreshCaravanProperties, calculateNeededPorterage, calculateCurrentPorterage , setCarriers} from './assignments.js';
 import { setupTrade } from './commerce.js';
 import { getCurrentLocation, setCurrentLocationKey, getCurrentLocationKey, setupLocationModal } from './location.js';
-import { updateUI, showConfirmationPopup} from './ui.js';
+import { updateUI, showConfirmationPopup,showAlertPopup, addLog} from './ui.js';
 import { setupMap } from './map.js';
 import { verifLose, handleResources } from './gameLogic.js';
 
-//import { checkLegionariesEncounter, checkBanditsEncounter, fightLegionaries, fightBandits, attemptBribe } from './fight.js';
+import { checkLegionariesEncounter, checkBanditsEncounter, fightLegionaries, fightBandits, attemptBribe } from './fight.js';
 
 console.log("Script loaded");
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM chargé");
 
     // Initialisation des boutons d'ouverture de modale
-    ['log', 'map', 'assign', 'trade', 'resources', 'porterage'].forEach(id => {
+    ['log', 'map', 'assign', 'trade', 'resources', 'porterage', 'roles'].forEach(id => {
         document.getElementById(`${id}-btn`).addEventListener('click', () => {
             document.getElementById(`${id}-modal`).style.display = 'block';
         });
@@ -63,50 +63,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Résoudre le tour
     document.getElementById('resolve-btn').addEventListener('click', () => {
-        // 1. Réinitialisation
-        resetAssignments();
-        setCarriers(0); 
-        
-        // 2. Calcul initial
+        console.log("Début du tour...");
+
+        // 1. Mise à jour initiale (au cas où)
         refreshCaravanProperties();
         
-        // 3. Appliquer les effets de base
+        // 2. Baisse du moral de base
         gameState.morale = Math.max(0, gameState.morale - 5);
-        
-        // 4. Effets des porteurs
         if (carriers > 0) {
             gameState.morale = Math.max(0, gameState.morale - carriers);
         }
         
-        // 5. Gestion des ressources
+        // 3. Gestion des ressources (C'est là que les gens meurent !)
+        // handleResources renvoie maintenant le vrai nombre de morts
         const { waterShortage, famine, waterDeaths, famineDeaths } = handleResources();
         
-        // 6. Journalisation (messages originaux conservés)
+        // --- CRUCIAL : MISE À JOUR APRÈS LES MORTS ---
+        // Si des gens sont morts, on doit "nettoyer" les rôles (gardes, etc.)
+        // pour ne pas que des morts participent aux combats.
+        if (waterDeaths > 0 || famineDeaths > 0) {
+            refreshCaravanProperties(); // Cela appelle sanitizeAssignments()
+        }
+        // ---------------------------------------------
+
+        // 4. Logs et Alertes
         addLog(`⚡ Début du tour - Moral: ${gameState.morale}%`);
-        if (carriers > 0) {
-            addLog(`🚶 ${carriers} porteurs assignés (-${carriers}% moral)`);
-        }
+        if (carriers > 0) addLog(`${carriers} porteurs assignés (-${carriers}% moral)`);
+        
         if (waterShortage) {
-            addLog(`❌ Manque d'eau - ${waterDeaths} personnes mortes de soif !`);
-        }
-        if (famine) {
-            addLog(`🍽️ Famine - ${famineDeaths} personnes mortes de faim et moral en baisse !`);
+            addLog(`Manque d'eau - ${waterDeaths} morts !`);
+            if(waterDeaths > 0) showAlertPopup(`Sécheresse ! ${waterDeaths} personnes sont mortes de soif.`);
         }
         
-        // 7. Alertes visuelles (pop-ups) pour les événements graves
-        if (waterShortage && waterDeaths > 0) {
-            showAlertPopup(`💧 Sécheresse ! ${waterDeaths} personnes sont mortes de soif.`);
+        if (famine) {
+            addLog(`Famine - ${famineDeaths} morts !`);
+            if(famineDeaths > 0) showAlertPopup(`Famine ! ${famineDeaths} personnes sont mortes de faim.`);
         }
-        if (famine && famineDeaths > 0) {
-            showAlertPopup(`🍽️ Famine ! ${famineDeaths} personnes sont mortes de faim.`);
+
+        // 5. COMBATS
+        const currentLocKey = getCurrentLocationKey();
+
+        // Légionnaires
+        if(checkLegionariesEncounter(currentLocKey)) {
+            const bribed = attemptBribe();
+            if(!bribed){
+                fightLegionaries(); 
+            }
         }
+            
+        // Bandits
+        if(checkBanditsEncounter(currentLocKey, )) {
+            fightBandits();
+        }
+
         
         // 8. Mise à jour finale
-        calculateNeededPorterage(); /////////❌ pb icu !!!!!
+        calculateNeededPorterage(); ///////// pb ici !!!!!
         calculateCurrentPorterage();
         //calculateNeededResources
         refreshCaravanProperties();
-        updateUI();
         
         // 9. Vérifier défaite
         if (verifLose()) {
@@ -115,6 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         addLog(`✓ Fin du tour - Équipage: ${gameState.crew} Moral: ${gameState.morale}%`);
+
+        resetAssignments(); 
+        updateUI();
+        setCarriers(0);
     });
 
     ///////////////////// FONCTIONNALITÉS DU MENU RÉGLAGES /////////////////////////////////////////////////////////////////////////////
@@ -195,41 +214,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     // ?????? à quoi ça sert
-    assignmentSetup(addLog);
-    setupTrade(addLog, getCurrentLocation());
+    assignmentSetup();
+    setupTrade(getCurrentLocation());
     setupLocationModal();
     updateUI();
     // Clics sur la carte
-    setupMap(addLog);
+    setupMap();
 
 
-    // Pop up qui apparait 
-    function showAlertPopup(message) {
-        const popup = document.createElement('div');
-        popup.className = 'alert-popup';
-        popup.innerHTML = `
-            <div class="alert-content">
-                <p>${message}</p>
-                <button class="close-alert">OK</button>
-            </div>
-        `;
-        
-        document.body.appendChild(popup);
-        
-        popup.querySelector('.close-alert').addEventListener('click', () => {
-            popup.remove();
-        });
-    }
-
-
-    // peut etre le mettre autre part chepa 
-    function addLog(message) {
-        const log = document.getElementById('log-messages');
-        const p = document.createElement('p');
-        p.textContent = message;
-        log.appendChild(p);
-        log.scrollTop = log.scrollHeight;
-    }
+    
 
     // Chepa
     function setupModalPosition(modalId) {
@@ -243,4 +236,5 @@ document.addEventListener('DOMContentLoaded', () => {
     ['map', 'assign', 'trade', 'resources', 'porterage'].forEach(setupModalPosition);
 
 });
+
 
