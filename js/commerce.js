@@ -1,10 +1,10 @@
-import { gameState, place, locationBackgrounds } from './gameState.js';
+import { gameState, place} from './gameState.js';
 import { calculateNeededPorterage, calculateCurrentPorterage } from './assignments.js';
-import { updateUI } from './ui.js';
-
+import { updateUI, addLog} from './ui.js';
+import { getCurrentLocation } from './location.js';
 
 // Commerce -------------------------------------------------------------------------------------------------------------------------------
-export function setupTrade(addLog, currentLocation) {
+export function setupTrade(currentLocation) {
     const tradeState = {
         volumeList: [0, 0, 0, 0, 0],
         priceList: [0, 0, 0, 0, 0],
@@ -16,46 +16,58 @@ export function setupTrade(addLog, currentLocation) {
     document.getElementById('trade-btn').addEventListener('click', () => {
         // Réinitialiser tous les inputs à 0
         for (let i = 1; i <= 5; i++) {
-            const input = document.getElementById(`input${i}`);
+            const input = document.getElementById(`tradeInput${i}`);
             if (input) input.value = '0';
         }
         
         document.getElementById('trade-modal').style.display = 'block';
-        tradeState.currentLocation = currentLocation || place.fluvial_city;
+
+        tradeState.currentLocation = getCurrentLocation();
+        // Sécurité au cas où getCurrentLocation renvoie null (optionnel mais conseillé)
+        if (!tradeState.currentLocation) {
+             tradeState.currentLocation = place.fluvial_city;
+        }
         
         const locationKey = Object.keys(place).find(key => place[key] === tradeState.currentLocation);
-        const bgPath = locationBackgrounds[locationKey] || locationBackgrounds.fluvial_city;
+       
+        const bgPath = place[locationKey].background || place[fluvial_city].background;
         
         document.getElementById('game-window2').style.backgroundImage = `url('${bgPath}')`;
         
         updateProductSelling(tradeState);
         updateProductBuying(tradeState);
-        setupTradeButtons(tradeState, addLog);
+        setupTradeButtons(tradeState);
         updateTradeTotal(tradeState); // Mettre à jour les totaux
         
     });
 
     document.getElementById('btnValidate2').addEventListener('click', () => {
-    const totalCost = calculateTotalLoss(tradeState) - calculateTotalProfit(tradeState);
+        const totalProfit = calculateTotalProfit(tradeState);
+        const totalLoss = calculateTotalLoss(tradeState);
+        const totalCost = totalLoss - totalProfit;
     
-        if (totalCost > tradeState.debens) {
-            addLog("❌ Fonds insuffisants pour cette transaction");
+        if (totalCost > 0 && totalCost > tradeState.debens) {
+            addLog("Fonds insuffisants pour cette transaction");
             return;
         }
         
         if (updateTradeValues(tradeState)) {
             document.getElementById('trade-modal').style.display = 'none';
-            addLog("🛒 Transaction commerciale effectuée");
+
+            const diff = totalProfit - totalLoss;
+            const sign = diff >= 0 ? '+' : '';
+            addLog(`Commerce terminé. Solde : ${sign}${diff} debens.`);
             
             // Réinitialiser les inputs après validation
             for (let i = 1; i <= 5; i++) {
-                const input = document.getElementById(`input${i}`);
+                const input = document.getElementById(`tradeInput${i}`);
                 if (input) input.value = '0';
             }
 
             calculateNeededPorterage();
             calculateCurrentPorterage();
             updateTradeTotal(tradeState);
+
             updateUI();
         }
     });
@@ -88,7 +100,7 @@ function updateProductSelling(tradeState) {
                 </div>
                 <div class="bloc">
                     <img class="btnMinus" id="btnMinus${index}" src="assets/images/ui/button/minus.png" alt="-">
-                    <input id="input${index}" type="text" value="0">
+                    <input id="tradeInput${index}" type="text" value="0">
                     <img class="btnPlus" id="btnPlus${index}" src="assets/images/ui/button/plus.png" alt="+">
                 </div>
             </div>
@@ -128,7 +140,7 @@ function updateProductBuying(tradeState) {
                 </div>
                 <div class="bloc">
                     <img class="btnMinus" id="btnMinus${index}" src="assets/images/ui/button/minus.png" alt="-">
-                    <input id="input${index}" type="text" value="0">
+                    <input id="tradeInput${index}" type="text" value="0">
                     <img class="btnPlus" id="btnPlus${index}" src="assets/images/ui/button/plus.png" alt="+">
                 </div>
             </div>
@@ -141,7 +153,7 @@ function updateProductBuying(tradeState) {
     });
 }
 
-function setupTradeButtons(tradeState, addLog) {
+function setupTradeButtons(tradeState) {
     const totalProducts = tradeState.priceList.length;
     
     for (let i = 1; i <= totalProducts; i++) {
@@ -164,7 +176,7 @@ function setupTradeButtons(tradeState, addLog) {
 
 
 function plusTrade(n, tradeState) {
-    const input = document.getElementById(`input${n}`);
+    const input = document.getElementById(`tradeInput${n}`);
     if (!input) return;
 
     const value = parseInt(input.value) || 0;
@@ -188,7 +200,7 @@ function plusTrade(n, tradeState) {
 }
 
 function minusTrade(n, tradeState) {
-    const input = document.getElementById(`input${n}`);
+    const input = document.getElementById(`tradeInput${n}`);
     if (!input) return;
 
     const value = parseInt(input.value) || 0;
@@ -200,7 +212,7 @@ function minusTrade(n, tradeState) {
 function calculateTotalProfit(tradeState) {
     let profit = 0;
     for (let i = 1; i <= 3; i++) {
-        const input = document.getElementById(`input${i}`);
+        const input = document.getElementById(`tradeInput${i}`);
         if (input) {
             profit += (parseInt(input.value) || 0) * tradeState.priceList[i-1];
         }
@@ -211,7 +223,7 @@ function calculateTotalProfit(tradeState) {
 function calculateTotalLoss(tradeState) {
     let loss = 0;
     for (let i = 4; i <= 5; i++) {
-        const input = document.getElementById(`input${i}`);
+        const input = document.getElementById(`tradeInput${i}`);
         if (input) {
             loss += (parseInt(input.value) || 0) * tradeState.priceList[i-1];
         }
@@ -246,7 +258,7 @@ function updateTradeValues(tradeState) {
     
     // Vente
     listSell.forEach((product, i) => {
-        const input = document.getElementById(`input${i+1}`);
+        const input = document.getElementById(`tradeInput${i+1}`);
         if (input) {
             const value = parseInt(input.value) || 0;
             tempResources[product] = (tempResources[product] || 0) - value;
@@ -256,7 +268,7 @@ function updateTradeValues(tradeState) {
     
     // Achat
     listBuy.forEach((product, i) => {
-        const input = document.getElementById(`input${i+4}`);
+        const input = document.getElementById(`tradeInput${i+4}`);
         if (input) {
             const value = parseInt(input.value) || 0;
             tempResources[product] = (tempResources[product] || 0) + value;
@@ -274,7 +286,7 @@ function updateTradeValues(tradeState) {
         
         // Mettre à jour l'affichage
         updateResourcesDisplay();
-        document.getElementById('debens').textContent = `💰 ${tempDebens}`;
+        document.getElementById('debens').textContent = `${tempDebens}`;
         
         // Mettre à jour la modale des ressources
         document.getElementById('weapons').textContent = gameState.resources.weapons;
@@ -285,7 +297,7 @@ function updateTradeValues(tradeState) {
         
         return true;
     } else {
-        addLog("❌ Transaction impossible - ressources insuffisantes");
+        addLog("Transaction impossible - ressources insuffisantes");
         return false;
     }
 }
@@ -298,8 +310,3 @@ function updateResourcesDisplay() {
     document.getElementById('horses').textContent = gameState.resources.horses;
 }
 
-function getCurrentLocation() {
-    // Implémentez cette fonction pour retourner l'emplacement actuel
-    // Par exemple, vous pourriez avoir une variable globale currentLocation
-    return place.fluvial_city; // Exemple temporaire
-} 
