@@ -1,7 +1,6 @@
-import { gameState, place, locationBackgrounds, porterage} from './gameState.js';
+import { gameState, place, porterage} from './gameState.js';
 import { getCurrentLocation } from './location.js';
-import { updateUI } from './ui.js';
-
+import { updateUI,addLog } from './ui.js';
 
 // --- Assignations ------------------------------------------------------------------------
 export let carriers = 0;
@@ -12,6 +11,16 @@ export let scouts = 0,
         foodHarvesters = 0, 
         strollers = 0;
         
+
+// fonction pour récupérer le nombre (utilisée par fight.js)
+export function getGuards() {
+    return guards;
+}
+
+// modifier le nombre (utilisée après une mort)
+export function setGuards(value) {
+    guards = Math.max(0, value); 
+}
 
 export function calculateMorale() {
     return gameState.morale;
@@ -50,7 +59,7 @@ export function minus1(n) {
     }
 }
 
-export function assignmentSetup(addLog) {
+export function assignmentSetup() {
     for (let i = 1; i <= 5; i++) {
         document.getElementById("btn-minus" + i).addEventListener("click", () => minus1(i));
         document.getElementById("btn-plus" + i).addEventListener("click", () => plus1(i));
@@ -75,7 +84,7 @@ export function assignmentSetup(addLog) {
 
         updateUI();
         
-        addLog(`✅ Assignations confirmées : ${scouts} éclaireurs, ${guards} gardes, ${waterGatherers} collecteurs d’eau, ${foodHarvesters} récolteurs, ${strollers} promeneurs.`);
+        addLog(`Assignations confirmées : ${scouts} éclaireurs, ${guards} gardes, ${waterGatherers} collecteurs d’eau, ${foodHarvesters} récolteurs, ${strollers} promeneurs.`);
     });
 
 }
@@ -112,8 +121,12 @@ export function resetAssignments() {
     // Réinitialiser les inputs visibles
     for (let i = 1; i <= 5; i++) {
         const input = document.getElementById("input" + i);
-        if (input) input.value = "0";
+        if (input) {
+            input.value = "0"; // Force l'affichage à 0
+        }
     }
+
+    
 }
 
 // Modifiez les fonctions de calcul :
@@ -174,7 +187,3 @@ export function setStayedInPlace(value) {
 export function setCarriers(val) {
     carriers = val;
 }
-
-
-///////////::
-
