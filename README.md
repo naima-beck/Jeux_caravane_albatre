@@ -30,7 +30,7 @@ L'exploration se fait via une carte interactive permettant de rallier les diffé
 
 <img width="1280" height="675" alt="Carte du jeu" src="https://github.com/user-attachments/assets/35c0f118-f8a4-4a19-8c67-eec7ea54aef6" />
 
-Cependant, chaque déplacement doit être minutieusement calculé. La gestion logistique est primordiale : un chargement trop lourd ou des ressources mal gérées peuvent immobiliser votre caravane. Il est impératif de respecter les règles de capacité de portage pour espérer traverser le désert sans encombre.
+Cependant, chaque déplacement doit être minutieusement calculé. La gestion logistique est primordiale : un chargement trop lourd ou des ressources mal gérées peuvent immobiliser votre caravane. Il est impératif de respecter les règles de capacité de portage pour espérer se déplacer sans encombre.
 
 <video src="https://github.com/user-attachments/assets/13cfdb85-6cee-4204-b616-741f69c3656a" controls="controls" style="max-width: 100%;">
 </video>
