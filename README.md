@@ -4,7 +4,8 @@ C'est un jeu de gestion en tour par tour se déroulant dans l'Égypte antique. G
 
 
 Le jeu intègre un marché qui s'actualise en temps réel selon l'endroit visité. Le système gère intelligemment les transactions en bloquant les achats ou les ventes si les conditions (argent ou ressources) ne sont pas réunies.
-<img width="1280" height="800" alt="Commerce" src="https://github.com/user-attachments/assets/2a2ba426-97a2-400e-8a30-3e352102f619" />
+<img width="1280" height="675" alt="commerce" src="https://github.com/user-attachments/assets/b0968840-e682-467f-a835-3f2364625491" />
+
 
 En voici le fonctionnement : 
 https://github.com/user-attachments/assets/5f4ed43f-30d6-4c70-b112-59c3c75d44fd
@@ -14,7 +15,8 @@ Avant de se déplacer, il est très important d'assigner les habitants à des r�
 
 
 Pour se déplacer, il faut cliquer sur la carte.
-<img width="1280" height="800" alt="Carte" src="https://github.com/user-attachments/assets/68e4fa33-d607-4431-b26c-55b8448cd980" />
+<img width="1280" height="675" alt="carte" src="https://github.com/user-attachments/assets/35c0f118-f8a4-4a19-8c67-eec7ea54aef6" />
+
 
 
 Mais attention à la bonne gestion des ressources, pour se déplacer il faut respecter certaines règles.
