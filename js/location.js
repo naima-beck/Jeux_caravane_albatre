@@ -40,15 +40,15 @@ function generateLocationHTML(name, data) {
     const food = data.foodYield ?? 0;
 
     const sellItems = data.sell ? Object.entries(data.sell)
-        .map(([key, val]) => `<li>🟢 Vend : ${key} - ${val.volume} unités à ${val.price}💰</li>`).join('') : '';
+        .map(([key, val]) => `<li>Vend : ${key} - ${val.volume} unités à ${val.price} debens </li>`).join('') : '';
     
     const buyItems = data.buy ? Object.entries(data.buy)
-        .map(([key, val]) => `<li>🔴 Achète : ${key} - ${val.volume} unités à ${val.price}💰</li>`).join('') : '';
+        .map(([key, val]) => `<li>Achète : ${key} - ${val.volume} unités à ${val.price} debens </li>`).join('') : '';
 
     return `
-        <h2>📍 ${formatName(name)}</h2>
-        <p>💧 Eau disponible : ${water}</p>
-        <p>🍞 Nourriture disponible : ${food}</p>
+        <h2>${formatName(name)}</h2>
+        <p>Eau disponible : ${water}</p>
+        <p>Nourriture disponible : ${food}</p>
         <ul>
             ${sellItems}
             ${buyItems}
@@ -56,6 +56,6 @@ function generateLocationHTML(name, data) {
     `;
 }
 
-function formatName(key) {
-    return key.replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+export function formatName(key) {
+    return place[key].name;
 }
