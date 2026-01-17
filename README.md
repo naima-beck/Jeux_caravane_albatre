@@ -3,20 +3,26 @@
 C'est un jeu de gestion en tour par tour se déroulant dans l'Égypte antique. Guidez votre caravane à travers le désert, gérez vos ressources, commercez avec les cités et survivez aux dangers du Nil.
 
 
+Le jeu intègre un marché qui s'actualise en temps réel selon l'endroit visité. Le système gère intelligemment les transactions en bloquant les achats ou les ventes si les conditions (argent ou ressources) ne sont pas réunies.
+<img width="1280" height="800" alt="Commerce" src="https://github.com/user-attachments/assets/2a2ba426-97a2-400e-8a30-3e352102f619" />
 
-
+En voici le fonctionnement : 
 https://github.com/user-attachments/assets/5f4ed43f-30d6-4c70-b112-59c3c75d44fd
 
+Avant de se déplacer, il est très important d'assigner les habitants à des rôles : pour récupérer des ressources, augmenter le morale mais surtout se préparer à une possible attaque de brigants en allant vers l'oasis ou le bord du nil.
+<img width="1280" height="675" alt="Assignement" src="https://github.com/user-attachments/assets/ae718cb5-f6de-439f-ab35-b494a8c6a090" />
 
 
-https://github.com/user-attachments/assets/78a7bdae-880b-46b9-b38e-2a75af01adf5
+Pour se déplacer, il faut cliquer sur la carte.
+<img width="1280" height="800" alt="Carte" src="https://github.com/user-attachments/assets/68e4fa33-d607-4431-b26c-55b8448cd980" />
 
 
+Mais attention à la bonne gestion des ressources, pour se déplacer il faut respecter certaines règles.
+https://github.com/user-attachments/assets/13cfdb85-6cee-4204-b616-741f69c3656a
 
 
+Il y a aussi un menu réglage où on peut voir les règles du jeu, gérer le son, recommencer la partie et reinitialiser les paramètres.
 https://github.com/user-attachments/assets/5c39b2dc-8756-4d8a-9022-b267a6e70259
-
-
 
 
 ## Objectifs
