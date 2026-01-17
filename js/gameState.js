@@ -4,6 +4,8 @@ export let backgroundMusic = new Audio("assets/sounds/ancient_egypt.mp3");
 
 export const place = {
     nil_shore: {
+        name:"Rive du Nil",
+        background: "assets/images/backgrounds/nil_shore.png",
         data: {
             waterYield: 3,
             foodYield: 1,
@@ -14,6 +16,8 @@ export const place = {
         }
     },
     village: {
+        name:"Village de Damiete ",
+        background: "assets/images/backgrounds/village.png",
         data: {
             waterYield: 2,
             foodYield: 0,
@@ -26,6 +30,8 @@ export const place = {
         }
     },
     fluvial_city: {
+        name:"Ville fluviale de Busia",
+        background: "assets/images/backgrounds/fluvial_city.png",
         data: {
             waterYield: 3,
             foodYield: 0,
@@ -40,6 +46,8 @@ export const place = {
         }
     },
     desert: {
+        name:"Désert",
+        background: "assets/images/backgrounds/desert.png",
         data: {
             waterYield: 0,
             foodYield: 0,
@@ -50,6 +58,8 @@ export const place = {
         }
     },
     oasis: {
+        name:"Oasis",
+        background: "assets/images/backgrounds/oasis.png",
         data: {
             waterYield: 3,
             foodYield: 3,
@@ -60,6 +70,8 @@ export const place = {
         }
     },
     desert_city: {
+        name:"Ville du désert de Bohr",
+        background: "assets/images/backgrounds/desert_city.png",
         data: {
             waterYield: 1,
             foodYield: 0,
@@ -89,16 +101,6 @@ export const gameState = {
         papyrus: 10,
         horses: 2
     }
-};
-
-// Dictionnaire des fonds par localisation
-export const locationBackgrounds = {
-    nil_shore: "assets/images/backgrounds/nil_shore.png",
-    village: "assets/images/backgrounds/village.png",
-    fluvial_city: "assets/images/backgrounds/fluvial_city.png",
-    desert: "assets/images/backgrounds/desert.png",
-    oasis: "assets/images/backgrounds/oasis.png",
-    desert_city: "assets/images/backgrounds/desert_city.png"
 };
 
 export const porterage = {
