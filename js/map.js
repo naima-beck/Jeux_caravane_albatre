@@ -1,13 +1,10 @@
-import { locationBackgrounds } from './gameState.js';
-import { getCurrentLocation, setCurrentLocationKey, getCurrentLocationKey } from './location.js';
+import { place,porterage} from './gameState.js';
+import { getCurrentLocation, setCurrentLocationKey, getCurrentLocationKey, formatName} from './location.js';
 import { setupTrade } from './commerce.js';
-import { updateUI } from './ui.js';
+import { updateUI,addLog,showAlertPopup} from './ui.js';
 
-// Utilisé dans main.js pour ajouter un message
-let addLogCallback = () => {};
 
-export function setupMap(addLog) {
-    addLogCallback = addLog;
+export function setupMap() {
     
     document.getElementById('map-btn').addEventListener('click', () => {
         document.getElementById('map-modal').style.display = 'block';
@@ -15,12 +12,21 @@ export function setupMap(addLog) {
 
     document.querySelectorAll('.map-zone').forEach(zone => {
         zone.addEventListener('click', () => {
+            // --- VERIFICATION DU PORTAGE (AJOUT) ---
+            if (porterage.current < porterage.needed) {
+                // Si la capacité actuelle est inférieure au poids porté
+                showAlertPopup(
+                `<b>Déplacement impossible !</b><br><br>Votre chargement est trop lourd.<br>Capacité : ${porterage.current}<br>Poids : ${porterage.needed}<br><br>Assignez plus de porteurs/chameaux ou vendez des objets.`
+                );
+                return; // <--- STOP ! On arrête la fonction ici, donc pas de déplacement.
+            }
+            // ---------------------------------------
             const locationKey = zone.dataset.location;
             setCurrentLocationKey(locationKey);
             updateMainBackground(locationKey);
-            setupTrade(addLogCallback, getCurrentLocation());
-            updateLocationDisplay();
-            addLogCallback(`📍 Vous êtes arrivé à : ${locationKey}`);
+            setupTrade(getCurrentLocation());
+            updateLocationDisplay(locationKey);
+            addLog(`Vous êtes arrivé à : ${formatName(locationKey)}`);
             document.getElementById('map-modal').style.display = 'none';
         });
     });
@@ -33,12 +39,12 @@ export function setupMap(addLog) {
     });
 
     updateMainBackground(getCurrentLocationKey());
-    updateLocationDisplay();
+    updateLocationDisplay(getCurrentLocationKey());
     updateUI();
 }
 
 function updateMainBackground(locationKey) {
-    const bgPath = locationBackgrounds[locationKey];
+    const bgPath = place[locationKey].background;
     if (bgPath) {
         document.body.style.backgroundImage = `url('${bgPath}')`;
         document.body.style.backgroundSize = 'cover';
@@ -47,15 +53,8 @@ function updateMainBackground(locationKey) {
     }
 }
 
-function updateLocationDisplay() {
-    const locationName = {
-        'fluvial_city': 'Fluvial City',
-        'desert_city': 'Désert City',
-        'desert': 'Désert',
-        'nil_shore': 'Rive du Nil',
-        'oasis': 'Oasis',
-        'village': 'Village'
-    };
-    document.getElementById('current-location-name').textContent = locationName[getCurrentLocationKey()];
+function updateLocationDisplay(key) {
+    const el = document.getElementById('current-location-name');
+    if(el) el.textContent = formatName(key);
 }
 
