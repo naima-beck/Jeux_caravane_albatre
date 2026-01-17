@@ -3,9 +3,7 @@ import { gameState } from './gameState.js';
 let famineTurns = 0;
 let stayedInPlace = false;
 
-
-// condition de défaite 
-
+// --- Conditions de défaite ---
 export function verifLose() {
     if (gameState.crew <= 0) {
         return true;
@@ -26,67 +24,84 @@ export function revolt() {
     return true;
 }
 
+// --- Gestion de la Faim (Renvoie le nombre de morts) ---
 export function handleFamine() {
+    let deaths = 0;
+
+    // Si on n'a pas assez de rations
     if (gameState.resources.rations < gameState.crew) {
         famineTurns++;
-        const losses = Math.pow(2, famineTurns) - 2;
-        gameState.crew = Math.max(0, gameState.crew - losses);
+        
+        // Calcul des morts (Logique exponentielle : 1, 3, 7...)
+        deaths = Math.pow(2, famineTurns) - 1;
+        
+        // Sécurité : on ne tue pas plus que de vivants
+        deaths = Math.min(deaths, gameState.crew);
+
+        // Application des effets
+        gameState.crew -= deaths;
         gameState.morale = Math.max(0, gameState.morale - 10);
-        return true;
+        
+        // On vide le stock de nourriture car ils ont tout mangé avant de mourir
+        gameState.resources.rations = 0; 
+
     } else {
+        // Assez à manger
+        gameState.resources.rations -= gameState.crew;
         famineTurns = 0;
-        return false;
+        deaths = 0;
     }
+
+    return deaths;
 }
 
+// --- Gestion de la Soif (Renvoie le nombre de morts) ---
 export function handleWater() {
+    let deaths = 0;
+
+    // 1. Calcul du besoin basé sur l'équipage ACTUEL (avant les morts)
     let waterNeeded = stayedInPlace 
         ? Math.floor(gameState.crew / 2)
         : gameState.crew;
 
+    // 2. Vérification
     if (gameState.water >= waterNeeded) {
+        // Tout va bien
         gameState.water -= waterNeeded;
-        return false;
+        deaths = 0;
     } else {
-        const shortage = waterNeeded - gameState.water;
-        gameState.crew = Math.max(0, gameState.crew - shortage);
-        gameState.water = 0;
-        return true;
+        // Manque d'eau
+        const waterAvailable = gameState.water;
+        
+        // Le manque d'eau tue directement (1 manque = 1 mort)
+        const shortage = waterNeeded - waterAvailable;
+        deaths = shortage;
+
+        // Sécurité
+        deaths = Math.min(deaths, gameState.crew);
+
+        // Application des effets
+        gameState.crew -= deaths;
+        gameState.water = 0; // Plus d'eau
     }
+
+    return deaths;
 }
 
+// --- Fonction Principale appelée par main.js ---
 export function handleResources() {
-    // Gestion de l'eau
-    const waterShortage = handleWater();
-    const waterDeaths = getWaterShortageDeaths();
+    // On exécute les fonctions qui appliquent les morts ET renvoient le nombre
+    const waterDeaths = handleWater();
+    const famineDeaths = handleFamine();
     
-    // Gestion des rations
-    const famine = handleFamine();
-    const famineDeaths = getFamineDeaths();
-    
-    // Si assez de rations
-    if (!famine && gameState.resources.rations >= gameState.crew) {
-        gameState.resources.rations -= gameState.crew;
-    }
+    // On détermine s'il y a eu pénurie pour l'affichage
+    const waterShortage = waterDeaths > 0;
+    const famine = famineDeaths > 0;
     
     return { waterShortage, famine, waterDeaths, famineDeaths };
 }
 
-
-export function getFamineTurns() {
-    return famineTurns;
-}
-
-export function getFamineDeaths() {
-    if (famineTurns > 0) {
-        return Math.pow(2, famineTurns) - 1; // Retourne le nombre de morts ce tour-ci
-    }
-    return 0;
-}
-
-export function getWaterShortageDeaths() {
-    let waterNeeded = stayedInPlace 
-        ? Math.floor(gameState.crew / 2)
-        : gameState.crew;
-    return Math.max(0, waterNeeded - gameState.water);
+// Setter pour le statut de déplacement
+export function setStayedInPlace(value) {
+    stayedInPlace = value;
 }
