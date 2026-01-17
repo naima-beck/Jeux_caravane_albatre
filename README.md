@@ -3,7 +3,19 @@
 C'est un jeu de gestion en tour par tour se déroulant dans l'Égypte antique. Guidez votre caravane à travers le désert, gérez vos ressources, commercez avec les cités et survivez aux dangers du Nil.
 
 
-https://github.com/user-attachments/assets/ee57eef6-2945-4c8c-a664-663e55df3580
+
+
+https://github.com/user-attachments/assets/5f4ed43f-30d6-4c70-b112-59c3c75d44fd
+
+
+
+https://github.com/user-attachments/assets/78a7bdae-880b-46b9-b38e-2a75af01adf5
+
+
+
+
+https://github.com/user-attachments/assets/5c39b2dc-8756-4d8a-9022-b267a6e70259
+
 
 
 
