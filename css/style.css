@@ -854,3 +854,41 @@ map area {
 .setting-actions button:hover {
   background-color: #a58a61;
 }
+
+
+/* -------------------------------------------------- */
+/* ÉTATS DU JEU (VOYAGE & VERROUILLAGE)               */
+/* -------------------------------------------------- */
+
+/* Classe pour griser les boutons quand le voyage est validé */
+.btn-disabled {
+    opacity: 0.5;
+    pointer-events: none; /* Rend le bouton non-cliquable */
+    filter: grayscale(100%);
+    cursor: not-allowed;
+    transform: none !important; /* Annule l'effet de survol existant */
+    box-shadow: none !important;
+}
+
+/* Style spécial pour le bouton Résoudre quand on est prêt à partir */
+#resolve-btn.ready-to-go {
+    background-color: #cd6133; /* Un ocre rouge plus vif pour attirer l'œil */
+    border: 2px solid #fff;
+    animation: pulse-travel 2s infinite;
+}
+
+/* Animation de pulsation pour dire "CLIQUE-MOI !" */
+@keyframes pulse-travel {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(205, 97, 51, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(205, 97, 51, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(205, 97, 51, 0);
+    }
+}
