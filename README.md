@@ -1,48 +1,59 @@
 # La Caravane d'Albâtre
 
-C'est un jeu de gestion en tour par tour se déroulant dans l'Égypte antique. Guidez votre caravane à travers le désert, gérez vos ressources, commercez avec les cités et survivez aux dangers du Nil.
+Plongez au cœur de l'Égypte antique dans ce jeu de gestion stratégique au tour par tour. En tant que chef d'expédition, votre mission est de guider votre caravane à travers les étendues désertiques, de faire prospérer votre commerce et d'assurer la survie de votre équipage face aux périls du Nil.
 
+## Mécaniques de Jeu
 
-Le jeu intègre un marché qui s'actualise en temps réel selon l'endroit visité. Le système gère intelligemment les transactions en bloquant les achats ou les ventes si les conditions (argent ou ressources) ne sont pas réunies.
-<img width="1280" height="675" alt="commerce" src="https://github.com/user-attachments/assets/b0968840-e682-467f-a835-3f2364625491" />
+**Commerce et Économie**
 
+Le commerce constitue le pilier central de votre aventure. Le jeu propose un marché dynamique dont les offres et les demandes s'actualisent en temps réel selon la localité visitée. Ce système intelligent sécurise chaque transaction en vérifiant la solvabilité et les stocks disponibles, garantissant une économie cohérente où chaque pièce compte.
 
-En voici le fonctionnement : 
+<img width="1280" height="675" alt="Interface de commerce" src="https://github.com/user-attachments/assets/b0968840-e682-467f-a835-3f2364625491" />
+
+Voici un aperçu des transactions en action :
 <video src="https://github.com/user-attachments/assets/5f4ed43f-30d6-4c70-b112-59c3c75d44fd" controls="controls" style="max-width: 100%;">
 </video>
 
-Avant de se déplacer, il est très important d'assigner les habitants à des rôles : pour récupérer des ressources, augmenter le morale mais surtout se préparer à une possible attaque de brigants en allant vers l'oasis ou le bord du nil.
-<img width="1280" height="675" alt="Assignement" src="https://github.com/user-attachments/assets/ae718cb5-f6de-439f-ab35-b494a8c6a090" />
+<br>
 
+**Gestion Stratégique de l'Équipage**
 
-Pour se déplacer, il faut cliquer sur la carte.
-<img width="1280" height="675" alt="carte" src="https://github.com/user-attachments/assets/35c0f118-f8a4-4a19-8c67-eec7ea54aef6" />
+La préparation est la clé de la survie. Avant chaque départ, il est crucial de définir la stratégie du tour en assignant des rôles précis à vos membres. Que ce soit pour la récolte de ressources vitales, le maintien du moral des troupes ou la défense contre les brigands rôdant près des oasis, chaque décision impacte la suite de votre périple.
 
+<img width="1280" height="675" alt="Menu d'assignation des rôles" src="https://github.com/user-attachments/assets/ae718cb5-f6de-439f-ab35-b494a8c6a090" />
 
+<br>
 
-Mais attention à la bonne gestion des ressources, pour se déplacer il faut respecter certaines règles.
+**Exploration et Logistique**
+
+L'exploration se fait via une carte interactive permettant de rallier les différents points d'intérêt de la région.
+
+<img width="1280" height="675" alt="Carte du jeu" src="https://github.com/user-attachments/assets/35c0f118-f8a4-4a19-8c67-eec7ea54aef6" />
+
+Cependant, chaque déplacement doit être minutieusement calculé. La gestion logistique est primordiale : un chargement trop lourd ou des ressources mal gérées peuvent immobiliser votre caravane. Il est impératif de respecter les règles de capacité de portage pour espérer traverser le désert sans encombre.
 
 <video src="https://github.com/user-attachments/assets/13cfdb85-6cee-4204-b616-741f69c3656a" controls="controls" style="max-width: 100%;">
 </video>
 
-<br> Il y a aussi un menu réglage où on peut voir les règles du jeu, gérer le son, recommencer la partie et réinitialiser les paramètres.
+<br>
+
+**Interface et Paramètres**
+
+Pour offrir une expérience fluide, une interface de réglages complète permet à tout moment de consulter les règles détaillées, d'ajuster l'ambiance sonore ou de gérer la progression de la partie.
 
 <video src="https://github.com/user-attachments/assets/5c39b2dc-8756-4d8a-9022-b267a6e70259" controls="controls" style="max-width: 100%;">
 </video>
 
+## Votre Mission
 
-## Objectifs
+Votre quête ultime est d'amasser une fortune suffisante pour acquérir une majestueuse barque de commerce sur le Nil. Pour y parvenir, vous devrez maîtriser l'art du négoce en achetant du papyrus dans les cités fluviales pour le revendre à prix d'or dans le désert. Votre succès dépendra de votre capacité à maintenir l'équilibre précaire entre la soif de richesses, les besoins vitaux de votre équipage et les menaces constantes que représentent les légionnaires corrompus et les bandits des sables.
 
-Votre mission : accumuler suffisamment de richesses pour acquérir une majestueuse barque de commerce naviguant sur le Nil. Pour cela, vous devrez :
+## Technologies Utilisées
 
-- **Commercez astucieusement** : Achetez du papyrus dans les cités fluviales et revendez-le avec profit dans les cités du désert
-- **Survivez aux éléments** : Gérez l'eau, la nourriture et le moral de votre équipage
-- **Évitez les dangers** : Légionnaires corrompus sur les berges du Nil et bandits tapis dans les oasis
-
-## Technologies utilisés
-- **Langage** : HTML5 / CSS3 / JavaScript Vanilla / LiveServer Dev
-- Design responsive et accessible
-- Interface utilisateur intuitive
+Ce projet a été conçu avec une approche moderne et accessible, utilisant les standards du web :
+* **HTML5 / CSS3** pour la structure et le design responsive.
+* **JavaScript Vanilla** pour toute la logique du jeu, sans dépendance lourde.
+* **LiveServer** pour l'environnement de développement.
 
 ## Installation
 
