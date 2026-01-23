@@ -1,4 +1,4 @@
-# La Caravane d'Albâtre
+<img width="1280" height="677" alt="Page de commerce" src="https://github.com/user-attachments/assets/5a286bcb-4d90-47dd-9bff-a49f145063fb" /># La Caravane d'Albâtre
 
 Plongez au cœur de l'Égypte antique dans ce jeu de gestion stratégique au tour par tour. En tant que chef d'expédition, votre mission est de guider votre caravane à travers les étendues désertiques, de faire prospérer votre commerce et d'assurer la survie de votre équipage face aux périls du Nil.
 
@@ -8,10 +8,11 @@ Plongez au cœur de l'Égypte antique dans ce jeu de gestion stratégique au tou
 
 Le commerce constitue le pilier central de votre aventure. Le jeu propose un marché dynamique dont les offres et les demandes s'actualisent en temps réel selon la localité visitée. Ce système intelligent sécurise chaque transaction en vérifiant la solvabilité et les stocks disponibles, garantissant une économie cohérente où chaque pièce compte.
 
-<img width="1280" height="675" alt="Interface de commerce" src="https://github.com/user-attachments/assets/b0968840-e682-467f-a835-3f2364625491" />
+<img width="1280" height="677" alt="Page de commerce" src="https://github.com/user-attachments/assets/f40674b6-1b05-4090-994f-5e614072c8c9" />
+
 
 Voici un aperçu des transactions en action :
-<video src="https://github.com/user-attachments/assets/5f4ed43f-30d6-4c70-b112-59c3c75d44fd" controls="controls" style="max-width: 100%;">
+<video src="https://github.com/user-attachments/assets/77971139-903d-42da-b22e-d895eb58fbed" controls="controls" style="max-width: 100%;">
 </video>
 
 <br>
@@ -28,9 +29,10 @@ La préparation est la clé de la survie. Avant chaque départ, il est crucial d
 
 L'exploration se fait via une carte interactive permettant de rallier les différents points d'intérêt de la région.
 
-<img width="1280" height="675" alt="Carte du jeu" src="https://github.com/user-attachments/assets/35c0f118-f8a4-4a19-8c67-eec7ea54aef6" />
+<img width="1280" height="607" alt="Map" src="https://github.com/user-attachments/assets/59c23b50-7d5d-4522-828d-31f15191dac0" />
 
 Cependant, chaque déplacement doit être minutieusement calculé. La gestion logistique est primordiale : un chargement trop lourd ou des ressources mal gérées peuvent immobiliser votre caravane. Il est impératif de respecter les règles de capacité de portage pour espérer se déplacer sans encombre.
+
 
 <video src="https://github.com/user-attachments/assets/13cfdb85-6cee-4204-b616-741f69c3656a" controls="controls" style="max-width: 100%;">
 </video>
@@ -41,8 +43,10 @@ Cependant, chaque déplacement doit être minutieusement calculé. La gestion lo
 
 Pour offrir une expérience fluide, une interface de réglages complète permet à tout moment de consulter les règles détaillées, d'ajuster l'ambiance sonore ou de gérer la progression de la partie.
 
-<video src="https://github.com/user-attachments/assets/5c39b2dc-8756-4d8a-9022-b267a6e70259" controls="controls" style="max-width: 100%;">
+<video src="https://github.com/user-attachments/assets/edce6ad7-26c9-460c-a770-3931cefcfcc2" controls="controls" style="max-width: 100%;">
 </video>
+
+
 
 ## Votre Mission
 
