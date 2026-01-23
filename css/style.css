@@ -94,8 +94,15 @@ button {
     border-radius: 4px;
     height: 36px;
     display: flex;
-    align-items: center;
     justify-content: center;
+
+    /* Pour le centrage parfait */
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement (C'est la ligne qui te manquait) */
+    
+    /* Conseil : Si tu as une hauteur fixe (36px), il vaut mieux mettre 0 pour le padding haut/bas */
+    padding: 0 12px;
 }
 
 button:hover {
@@ -518,92 +525,157 @@ map area {
 /* -------------------------------------------------- */
 /* CONTENEUR PRINCIPAL DES BOUTONS.                   */
 /* -------------------------------------------------- */
+
 .main-buttons-container {
     position: fixed;
-    right: 5%;
-    top: 15%;
-    width: 45%;
+    /* On reprend tes anciennes positions pour que ça soit à la même place */
+    right: 4%; 
+    top: -10%;
+    width: 45%; /* Largeur relative à l'écran */
+    height: auto; /* 60% */
+    aspect-ratio: 380 / 480;
+
+    /* CORRECTION DU CHEMIN DE L'IMAGE : on ajoute "../" */
+    background-image: url('../assets/images/ui/modal/Parchemin.png'); 
+    
+    /* L'image s'adapte sans être déformée */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    z-index: 10;
+    
+    /* Centre la grille de boutons DANS l'image du parchemin */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    pointer-events: none;
+}
+
+/* On s'assure que l'ancien rectangle est bien caché */
+.rounded-rectangle {
+    display: none;
+}
+
+/* La grille invisible qui tient les boutons */
+.buttons-grid {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 15px;
-    z-index: 10;
+    justify-content: space-evenly;
+    width: 65%;
+    height: 45%;
+    margin-left: 10%;
+    margin-top: -5%;
 }
 
-
-.rounded-rectangle {
-    border-radius: 15px;
-    padding: 5%;
-    /*   */
-    width: 100%;
-    border: 2px solid #3a2c1a;
-    box-shadow: -3px 3px 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
-}
-
-.buttons-grid {
-    display: grid;
-    gap: 30px;
-}
+/* Style des boutons (Transparents) */
 .buttons-grid button {
-    justify-content: space-between; 
-    padding: 12px 15px;
-    gap: 10px;
-}
-
-.button-icon {
-    width: 32px;  /* Ajustez selon vos besoins */
-    height: 32px;
-    object-fit: contain;
-}
-
-.buttons-grid button {
-    background-color: #c19a5f;
-    color: white;
+    position: relative;
+    background-color: transparent; 
+    box-shadow: none;              
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-size: 20px;
-    min-width: 100px;
-    height: 60px;
+    
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    justify-content: flex-end; /* Texte aligné à droite */
+    
+    width: 100%;
+    height: 10%; /* Hauteur d'une ligne */
+    padding-right: 20px; 
+    
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    pointer-events: auto;
 }
 
 .buttons-grid button:hover {
-    background-color: #a67c52;
-    transform: translateY(-2px);
+    background-color: transparent; 
+    transform: scale(1.02); 
 }
 
-.buttons-grid button::before {
-    font-size: 24px;
-    margin-bottom: 5px;
+/* Le texte */
+.button-text {
+    font-family: 'Papyrus', fantasy;
+    /* On utilise 'vw' pour que la police grossisse avec l'écran */
+    font-size: 1.5vw; 
+    color: #3a2c1a; 
+    font-weight: bold;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.4);
 }
 
-/* Section Résoudre */
-.resolve-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+/* --- CORRECTION ICI : On cible UNIQUEMENT les icônes de ce menu --- */
+.buttons-grid .button-icon {
+    position: absolute;
+    /* On positionne l'icône plus à gauche pour tomber sur le badge en cuir */
+    left: -13% !important;
+    top: 50%;
+    transform: translateY(-50%); 
+    
+    /* Taille adaptative */
+    width: 3vw; 
+    height: 3vw;
+    object-fit: contain;
+    
+    /* Effet visuel 
+    filter: sepia(0.8) drop-shadow(1px 2px 2px rgba(0,0,0,0.3));
+    transition: all 0.3s; */
 }
 
+/* Animation au survol spécifique à ce menu */
+.buttons-grid button:hover .button-icon {
+    filter: sepia(0); 
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Bouton pour les règles */
+img.button-icon {
+    width: 3vw; 
+    height: 3vw;
+}
+
+/* -------------------------------------------------- */
+/* NOUVEAU CONTENEUR (La barre invisible du bas)      */
+/* -------------------------------------------------- */
+.bottom-controls {
+    position: fixed;   /* C'est LUI qui est fixé en bas maintenant */
+    bottom: 30px;      /* Marge du bas */
+    left: 0;
+    width: 100%;       /* Prend toute la largeur */
+    padding: 0 5%;     /* Marge sur les côtés (5% comme avant) */
+    
+    display: flex;             /* Active l'alignement */
+    justify-content: space-between; /* Pousse le lieu à gauche et le bouton à droite */
+    align-items: center;       /* Aligne verticalement */
+    
+    z-index: 100;
+    pointer-events: none; /* Laisse passer les clics à travers le vide entre les boutons */
+}
+
+/* On réactive les clics sur les boutons eux-mêmes */
+.bottom-controls > * {
+    pointer-events: auto;
+}
+
+/* -------------------------------------------------- */
+/* LIEU ACTUEL (Modifié)                              */
+/* -------------------------------------------------- */
 .current-location-box {
-    position: fixed;
-    bottom: 5%;
-    left: 5%;
-    background-color: rgba(58, 44, 26, 0.9);
+    /* ON ENLÈVE position: fixed, bottom et left car c'est le parent qui gère */
+    
+    /* Le style visuel reste le même */
+    background-image: url('../assets/images/ui/button/Bouton_cuir.png'); 
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
     color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 12px 25px;
+    border-radius: 8px; /* Important pour que l'image ne dépasse pas si elle est arrondie */
     font-size: 14px;
-    border: 1px solid #c19a5f;
+    
+    /* Ajout d'une ombre portée pour le style */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -611,24 +683,38 @@ map area {
     font-weight: bold;
 }
 
+/* -------------------------------------------------- */
+/* BOUTON RÉSOUDRE (Modifié)                          */
+/* -------------------------------------------------- */
+.resolve-container {
+    /* ON ENLÈVE position: fixed, bottom et right */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 #resolve-btn {
     padding: 12px 25px;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 8px; /* Important pour suivre la forme de l'image */
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    transition: all 0.3s;
+    transition: transform 0.2s ease; /* Animation fluide */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: rgba(58, 44, 26, 0.9);
+    
+    background-image: url('../assets/images/ui/button/Bouton_cuir.png'); 
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
 #resolve-btn:hover {
-    background-color: #291d0d;
-    transform: translateY(-2px);
+    /* J'ai enlevé le background-color car il est caché par l'image de toute façon */
+    transform: translateY(-2px) scale(1.05); /* Petit effet de zoom sympa */
+    filter: brightness(1.2); /* Éclaircit l'image au survol */
 }
-
 /* -------------------------------------------------- */
 /* STYLE DE BASE DES MODALES (à conserver)            */
 /* -------------------------------------------------- */
@@ -891,4 +977,9 @@ map area {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(205, 97, 51, 0);
     }
+}
+
+
+#music-volume {
+    accent-color: #c19a5f; /* Ton doré */
 }
