@@ -19,6 +19,7 @@
             <span id="authority"><img src="assets/images/ui/stats/authority.png" alt="Authority"> 10</span>
             <button id="resources-btn"><img src="assets/images/ui/stats/inventory.png" alt="Ressources"> Ressources</button>
             <button id="porterage-btn"><img src="assets/images/ui/stats/porterage.png" alt="Portage"> Portage</button>
+            <button id="roles-btn"><img src="assets/images/ui/stats/crew.png" alt="Ressources"> Rôle</button>
         
         </div>
         
@@ -35,7 +36,7 @@
     <div class="modal" id="settings-modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2>⚙️ Réglages</h2>
+            <h2>Réglages</h2>
 
             <div class="setting-group">
                 <label for="music-volume">🎵 Volume musique</label>
@@ -54,11 +55,11 @@
                 </button>
 
                 <button id="restart-btn">
-                    🔁 Recommencer la partie
+                    Recommencer la partie
                 </button>
 
                 <button id="reset-settings-btn">
-                    🧹 Réinitialiser les réglages
+                    Réinitialiser les réglages
                 </button>
 
             </div>
@@ -170,37 +171,80 @@
         </div>
     </div>
 
+    <!-- Fenêtre modale : Roles -->
+    <div class="modal" id="roles-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2><img src="assets/images/ui/stats/crew.png" alt="Rôles"> Répartition actuelle</h2>
 
+            <div class="resource">
+                <span>Éclaireurs:</span>
+                <span id="role-scouts">0</span>
+            </div>
 
-    <!-- Conteneur principal des boutons -->
-    <div class="main-buttons-container">
-        <div class="rounded-rectangle">
-            <div class="buttons-grid">
+            <div class="resource">
+                <span>Gardes:</span>
+                <span id="role-guards">0</span>
+            </div>
 
-                <button id="assign-btn">
-                    <img src="assets/images/ui/button/assignement.png" alt="Assignement Icon" class="button-icon">
-                    Rôles
-                </button>
-                
-                <button id="map-btn">
-                    <img src="assets/images/ui/button/map.png" alt="Carte Icon" class="button-icon">
-                    Carte
-                </button>
+            <div class="resource">
+                <span>Collecteurs d'eau:</span>
+                <span id="role-water">0</span>
+            </div>
 
-                <button id="trade-btn">
-                    <img src="assets/images/ui/button/trade.png" alt="Commerce Icon" class="button-icon">
-                    Commerce
-                </button>
+            <div class="resource">
+                <span>Récolteurs:</span>
+                <span id="role-food">0</span>
+            </div>
 
-                <button id="log-btn">
-                    <img src="assets/images/ui/button/diary.png" alt="Carnet Icon" class="button-icon">
-                    Carnet
-                </button>
+            <div class="resource">
+                <span>Promeneurs:</span>
+                <span id="role-strollers">0</span>
+            </div>
 
+            <div class="resource">
+                <span>Porteurs (Auto):</span>
+                <span id="role-carriers">0</span>
+            </div>
+            
+            <hr>
+            
+            <div class="resource">
+                <span>Inoccupés:</span>
+                <span id="role-idle">0</span>
             </div>
         </div>
     </div>
-        
+
+    
+
+    <!-- Conteneur principal des boutons -->
+    <div class="main-buttons-container">
+        <div class="buttons-grid">
+
+            <button id="assign-btn">
+                <img src="assets/images/ui/button/assignement.png" alt="Rôles" class="button-icon">
+                <span class="button-text">Rôles</span>
+            </button>
+            
+            <button id="map-btn">
+                <img src="assets/images/ui/button/map.png" alt="Carte" class="button-icon">
+                <span class="button-text">Carte</span>
+            </button>
+
+            <button id="trade-btn">
+                <img src="assets/images/ui/button/trade.png" alt="Commerce" class="button-icon">
+                <span class="button-text">Commerce</span>
+            </button>
+
+            <button id="log-btn">
+                <img src="assets/images/ui/button/diary.png" alt="Carnet" class="button-icon">
+                <span class="button-text">Carnet</span>
+            </button>
+
+        </div>
+    </div>
+            
 
     <!-- Fenêtre modale : Assignations -->
     <div class="modal" id="assign-modal">
@@ -321,10 +365,7 @@
     </div>
 
 
-    <!-- Bouton : Infos lieu -->
-    <div class="current-location-box">
-        Lieu actuel : <span id="current-location-name">Fluvial City</span>
-    </div>
+    
 
     <!-- Fenêtre modale : Infos Lieu -->
     <div class="modal" id="location-info-modal">
@@ -336,12 +377,19 @@
         </div>
     </div>
 
+    <div class="bottom-controls">
+        <!-- Bouton : Infos lieu -->
+        <div class="current-location-box">
+            Lieu actuel : <span id="current-location-name">Ville fluviale</span>
+        </div>
 
-    <!-- Bouton : Résolution du tour-->
-    <div class="resolve-container">
-        <button id="resolve-btn">⚡ Résoudre</button>
+        <!-- Bouton : Résolution du tour-->
+        <div class="resolve-container">
+            <button id="resolve-btn">Résoudre</button>
+        </div>
+
+        
     </div>
-
 
 
    <!-- Javascript -->
