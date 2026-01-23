@@ -21,7 +21,8 @@ Voici un aperçu des transactions en action :
 
 La préparation est la clé de la survie. Avant chaque départ, il est crucial de définir la stratégie du tour en assignant des rôles précis à vos membres. Que ce soit pour la récolte de ressources vitales, le maintien du moral des troupes ou la défense contre les brigands rôdant près des oasis, chaque décision impacte la suite de votre périple.
 
-<img width="1280" height="607" alt="Assignations" src="https://github.com/user-attachments/assets/fffe8836-a339-4d66-ba01-4274cd10bd7e" />
+<img width="1280" height="677" alt="Menu d&#39;assignation des rôles" src="https://github.com/user-attachments/assets/ecca5463-500b-4108-8e12-b93d8914adfd" />
+
 
 <br>
 
