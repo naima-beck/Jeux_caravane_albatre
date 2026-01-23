@@ -1,4 +1,4 @@
-<img width="1280" height="677" alt="Page de commerce" src="https://github.com/user-attachments/assets/5a286bcb-4d90-47dd-9bff-a49f145063fb" /># La Caravane d'Albâtre
+# La Caravane d'Albâtre
 
 Plongez au cœur de l'Égypte antique dans ce jeu de gestion stratégique au tour par tour. En tant que chef d'expédition, votre mission est de guider votre caravane à travers les étendues désertiques, de faire prospérer votre commerce et d'assurer la survie de votre équipage face aux périls du Nil.
 
